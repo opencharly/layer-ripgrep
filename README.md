@@ -9,7 +9,8 @@ fetches this repo at the pinned tag (`@github.com/opencharly/ripgrep:v<tag>`).
 ## Pins
 
 - `charly` — the charly checkout this candy's manifest is validated against
-  (submodule, `.gitmodules`).
+  cloned into `.ci/charly` at CI time at the pinned tag (no committed
+  submodule).
 
 ## Gate
 
