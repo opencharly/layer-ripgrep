@@ -44,7 +44,6 @@ pattern is absent — usable directly in shell conditionals.
 
 - `charly.yml` — the candy manifest: the `ripgrep` package list, an ordered
   `plan:` of build-time `check:` steps, and the embedded `skill:` entity.
-- `.github/workflows/` — the org-wide `charly/pr-validator` gate; no per-repo candy gate.
 - `.github/workflows/tag-on-merge.yml` — CalVer tag + `CHANGELOG/` on merge.
 - `README.md` — this user overview.
 
