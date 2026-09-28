@@ -9,7 +9,6 @@ and no runtime service — only a package install and its verifiable assertions.
 Canonical files:
 
 - `charly.yml` — the `ripgrep:` candy entity and the `ripgrep-skill:` skill entity.
-- `.github/workflows/` — the org-wide `charly/pr-validator` gate; there is no per-repo candy gate.
 - `.github/workflows/tag-on-merge.yml` — CalVer tag + `CHANGELOG/` on merge.
 - `README.md` — user overview only; never agent guidance.
 
@@ -26,8 +25,9 @@ Canonical files:
 
 - `charly box validate` at the repo root — the structural check: the manifest
   must parse and validate at the installed charly.
-- The merge gate is the org-wide `charly/pr-validator` (required check
-  `validate / validate`); there is no per-repo candy gate.
+- The merge gate is the **org-wide** `charly/pr-validator` (required check
+  `validate / validate`, defined in `opencharly/.github`); this repo has no
+  per-repo candy gate.
 - There is no live bed: the candy is package-only, so the evidence is its
   `plan:` `check:` steps, which assert `/usr/bin/rg` exists, `rg --version`
   reports a parseable version, and search returns match / no-match correctly.
