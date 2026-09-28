@@ -1,19 +1,57 @@
 # ripgrep
 
-The `ripgrep` candy of the [opencharly/charly](https://github.com/opencharly/charly)
-candy library, as a standalone repo (the candy de-submodule cutover).
+Fast recursive text search for OpenCharly images.
 
-The candy manifest lives at the repo root (`charly.yml`); the charly resolver
-fetches this repo at the pinned tag (`@github.com/opencharly/ripgrep:v<tag>`).
+The `ripgrep` candy installs upstream [ripgrep](https://github.com/BurntSushi/ripgrep),
+providing the `rg` binary at `/usr/bin/rg` — a recursive search tool that honours
+`.gitignore` by default and is dramatically faster than a naïve `grep -r`. The
+layer is package-only: no service, no daemon, no runtime dependency, no
+configuration. It composes into any image whose distro ships a `ripgrep` package.
 
-## Pins
+## What it provides
 
-- `charly` — the charly checkout this candy's manifest is validated against
-  cloned into `.ci/charly` at CI time at the pinned tag (no committed
-  submodule).
+| Property | Value |
+|---|---|
+| Layer / candy | `ripgrep` |
+| Package | `ripgrep` (distro system package) |
+| Binary | `/usr/bin/rg` |
+| Service / port | none |
+| Environment | none |
 
-## Gate
+## How to use it
 
-`.github/workflows/deploy.yml` builds charly from the pinned checkout and runs
-`charly box validate` on this repo's `charly.yml` — the manifest must parse and
-validate at the pinned charly (the project schema version tracks the pin).
+Compose the layer by pinning this repo in a box's `candy:` list:
+
+```yaml
+my-box:
+  candy:
+    base: fedora                 # any distro with a ripgrep package
+    candy:
+      - '@github.com/opencharly/layer-ripgrep:v2026.235.1653'
+```
+
+Then, inside the built image:
+
+```bash
+rg "Pattern" path/
+rg --version
+```
+
+ripgrep returns exit `0` when at least one match is found and exit `1` when the
+pattern is absent — usable directly in shell conditionals.
+
+## Layout
+
+- `charly.yml` — the candy manifest: the `ripgrep` package list, an ordered
+  `plan:` of build-time `check:` steps, and the embedded `skill:` entity.
+- `.github/workflows/deploy.yml` — builds the pinned charly and runs
+  `charly box validate` on the manifest (the merge gate).
+- `.github/workflows/tag-on-merge.yml` — CalVer tag + `CHANGELOG/` on merge.
+- `README.md` — this user overview.
+
+## Related
+
+- Owning skill: `/charly-tools:ripgrep`
+- Bundled by: `/charly-coder:dev-tools`, `/charly-openclaw:openclaw-full`
+- [`opencharly/charly`](https://github.com/opencharly/charly) — the charly CLI and image builder
+- [`opencharly/opencharly`](https://github.com/opencharly/opencharly) — the umbrella
