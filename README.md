@@ -50,6 +50,6 @@ pattern is absent — usable directly in shell conditionals.
 ## Related
 
 - Owning skill: `/charly-tools:ripgrep`
-- Bundled by: `/charly-coder:dev-tools`, `/charly-openclaw:openclaw-full`
+- Bundled by: `/charly-coder:dev-tools`
 - [`opencharly/charly`](https://github.com/opencharly/charly) — the charly CLI and image builder
 - [`opencharly/opencharly`](https://github.com/opencharly/opencharly) — the umbrella
